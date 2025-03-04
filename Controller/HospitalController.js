@@ -32,7 +32,7 @@ async function del (req ,res){
 
 async function getAll (req ,res){
     const data = await Hospitals.find({})
-    console.log(data)
+   
     return res.json(data)
 }
 async function getbycity (req ,res){
@@ -42,25 +42,36 @@ async function getbycity (req ,res){
 }
 
 async function update(req,res){
-    const _id = req.query.id;
-    await Hospitals.updateOne({_id : id}, {set :{
-        name : req.body.name,
+    const _id = req.query._id;
+    
+    const data = await Hospitals.updateOne({_id : _id}, {$set :{
+            name : req.body.name,
             city : req.body.city,
             img : req.body.img,
             spec : req.body.spec,
             rating : req.body.rating,
     }})
+    
+    return res.json("Done")
 }
 
 async function details(req,res){
-    const _id = req.query.id;
-    await Hospitals.updateOne({_id : id} , {set : {
+    const _id = req.query._id;
+    
+    await Hospitals.updateOne({_id : _id} , {$set : {
         desc : req.body.desc,
         noDoctor : req.body.noDoctor,
         noDepartment : req.body.noDepartment
     }})
+    return res.json("Updated")
+}
+
+async function getDetails(req, res){
+
+    const data = await Hospitals.findOne({_id : req.body._id})
+    return res.json(data)
 }
 
 
 
-module.exports = {create , del , getAll , update , details , getbycity}
+module.exports = {create , del , getAll , update , details , getbycity , getDetails}

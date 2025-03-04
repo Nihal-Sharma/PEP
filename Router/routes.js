@@ -1,5 +1,5 @@
 const express = require('express');
-const { create , del , getAll , update , details ,getbycity} = require('../Controller/HospitalController');
+const { create , del , getAll , update , details ,getbycity  , getDetails}  = require('../Controller/HospitalController');
 
 const Router = express.Router();
 
@@ -20,6 +20,10 @@ Router.route("/hospitals/update")
 
 Router.route("/hospitals/details")
 .post(details)
+
+Router.route("/hospitals/getDetails")
+.post(getDetails)
+.get((req,res)=>{res.json("hello")})
 
 
 
